@@ -1,7 +1,6 @@
 import pytest
 from string_utils import StringUtils
 
-
 string_utils = StringUtils()
 
 
@@ -20,7 +19,7 @@ def test_capitalize_positive(input_str, expected):
 @pytest.mark.parametrize("input_str, expected", [
     ("123abc", "123abc"),
     ("", ""),
-    ("   ", "   "),
+    ("   ", "   ")
 ])
 def test_capitalize_negative(input_str, expected):
     assert string_utils.capitalize(input_str) == expected
@@ -32,9 +31,9 @@ def test_capitalize_negative(input_str, expected):
     (" Hello world", "Hello world"),
     ("  123", "123"),
     (" H", "H"),
-    (" I am very good", "I am very good"),
+    (" I am very good", "I am very good")
 ])
-def test_trim_positive (input_str, expected):
+def test_trim_positive(input_str, expected):
     assert string_utils.trim(input_str) == expected
 
 
@@ -42,50 +41,48 @@ def test_trim_positive (input_str, expected):
 @pytest.mark.parametrize("input_str, expected", [
     ("   ", ""),
     ("", ""),
-    ("verynice", "verynice"),
+    ("verynice", "verynice")
 ])
-def test_trim_negative (input_str, expected):
+def test_trim_negative(input_str, expected):
     assert string_utils.trim(input_str) == expected
 
 
-
 @pytest.mark.positive
-@pytest.mark.parametrize("self, string: str, symbol: str", [
-        ("beer", "e", True),
-        ("wi-fi", "i", True),
-        ("work 4", "4",True),
-        ("like7", "0", False),
+@pytest.mark.parametrize("input_str, symbol, expected", [
+    ("beer", "e", True),
+    ("Hello", "H", True),
+    ("like7", "0", False),
+    ("like", "l", True)
 ])
-def test_contains_positive(self, string: str, symbol: str) -> bool:
-    return symbol in string
-
+def test_contains_positive(input_str, symbol, expected):
+    assert string_utils.contains(input_str, symbol) == expected
 
 
 @pytest.mark.negative
-@pytest.mark.parametrize("self, string: str, symbol: str", [
-    ("", "e", True),
-    (" ", "1", True),
-    ("work 4", "5", True),
-    ("like7", "7", False),
+@pytest.mark.parametrize("input_str, symbol, expected", [
+    ("world", "h", False),
+    ("like", "l", True),
+    ("good", "g", True)
 ])
-def test_contains_positive(self, string: str, symbol: str ) -> bool:
-    return symbol in string
+def test_contains_negative(input_str, symbol, expected):
+    assert string_utils.contains(input_str, symbol) == expected
+
 
 @pytest.mark.positive
 @pytest.mark.parametrize("input_str, symbol, expected", [
-        ("SkyPro","k", "SkPro"),
-        ("SkyPro", "Pro", "SkPro"),
-        ("SkyPro", "Sky", "Pro"),
+        ("SkyPro", "k", "SyPro"),
+        ("SkyPro", "Pro", "Sky"),
+        ("SkyPro", "o", "SkyPr")
 ])
 def test_delete_symbol_positive(input_str, symbol, expected):
     assert string_utils.delete_symbol(input_str, symbol) == expected
 
 
 @pytest.mark.negative
-@pytest.mark.parametrize("input_str, symbol", [
-    ("", "a"),
-    ("", ""),
+@pytest.mark.parametrize("input_str, symbol,expected", [
+    ("SkyPro", " ", "SkyPro"),
+    ("hello", "b", "hello"),
+    ("world", "b", "world")
 ])
-def test_delete_symbol_empty_string(input_str, symbol):
-    assert string_utils.delete_symbol(input_str, symbol)
-
+def test_delete_symbol_negative(input_str, symbol, expected):
+    assert string_utils.delete_symbol(input_str, symbol) == expected
