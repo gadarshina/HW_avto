@@ -1,26 +1,21 @@
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service as ChromeService
+from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
+
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-# Шаг 1: Переход на сайт
-url = 'http://uitestingplayground.com/textinput'
-driver = webdriver.Chrome()  # Замените Chrome на ваш браузер, если используете другой
-driver.get(url)
+driver = webdriver.Chrome(service=ChromeService
+                          (ChromeDriverManager().install()))
 
-# Шаг 2: Ожидание видимости элемента и указание текста в поле ввода
-input_field = WebDriverWait(driver, 30).until(
-    EC.visibility_of_element_located((By.ID, 'newButtonName'))
+driver.maximize_window()
+driver.get("http://uitestingplayground.com/ajax")
+driver.find_element(By.CSS_SELECTOR, "#ajaxButton").click()
+
+content = WebDriverWait(driver, 20).until(
+    EC.presence_of_element_located((By.CSS_SELECTOR, 'p.bg-success'))
 )
-input_field.send_keys('SkyPro')
+print("Data loaded with AJAX get request.")
 
-# Шаг 3: Нажимаем на синюю кнопку
-button = driver.find_element(By.ID, 'button')
-button.click()
-
-# Шаг 4: Получаем текст кнопки и выводим в консоль
-button_text = button.text
-print(button_text)
-
-# Закрытие браузера после завершения работы
 driver.quit()

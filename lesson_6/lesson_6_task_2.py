@@ -1,38 +1,21 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.action_chains import ActionChains
-import time
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
-# Укажите путь к вашему драйверу, например chromedriver
-driver_path = 'path/to/chromedriver'
+url = 'http://uitestingplayground.com/textinput'
+driver = webdriver.Chrome()
+driver.get(url)
 
-# Создаем экземпляр браузера
-driver = webdriver.Chrome(executable_path=driver_path)
+input_field = WebDriverWait(driver, 30).until(
+    EC.visibility_of_element_located((By.ID, 'newButtonName'))
+)
+input_field.send_keys('SkyPro')
 
-try:
-    # Переходим на сайт
-    driver.get("http://uitestingplayground.com/textinput")
+button = driver.find_element(By.ID, 'button')
+button.click()
 
-    # Находим поле ввода по его id
-    input_field = driver.find_element(By.ID, "textInput")
+button_text = button.text
+print(button_text)
 
-    # Вводим текст "SkyPro"
-    input_field.send_keys("SkyPro")
-
-    # Находим синюю кнопку по её классу или тексту
-    # Предположим, что это кнопка с классом btn-primary
-    button = driver.find_element(By.CLASS_NAME, "btn-primary")
-
-    # Нажимаем на кнопку
-    button.click()
-
-    # Получаем текст кнопки после клика
-    button_text = button.text
-
-    # Выводим в консоль в нужном формате
-    print(f'"{button_text}"')
-
-finally:
-
-    time.sleep(2)
-    driver.quit()
+driver.quit()
