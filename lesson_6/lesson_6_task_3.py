@@ -9,8 +9,10 @@ driver = webdriver.Chrome(
     service=ChromeService(ChromeDriverManager().install())
 )
 
-(driver.get
- ("https://bonigarcia.dev/selenium-webdriver-java/loading-images.html"))
+driver.get(
+    "https://bonigarcia.dev/selenium-webdriver-java/loading-"
+    "images.html"
+)
 
 element = WebDriverWait(driver, 40).until(
     EC.presence_of_element_located((By.CSS_SELECTOR, '#image-container'))

@@ -12,9 +12,8 @@ input_field = WebDriverWait(driver, 30).until(
 )
 input_field.send_keys('SkyPro')
 
-button = driver.find_element(By.ID, 'button')
+button = driver.find_element(By.ID, 'updatingButton')
 button.click()
-
 button_text = button.text
 print(button_text)
 
