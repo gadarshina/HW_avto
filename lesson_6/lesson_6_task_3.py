@@ -14,8 +14,8 @@ driver.get(
     "images.html"
 )
 
-element = WebDriverWait(driver, 40).until(
-    EC.presence_of_element_located((By.CSS_SELECTOR, '#image-container'))
+WebDriverWait(driver, 20).until(
+    EC.text_to_be_present_in_element((By.ID, "text"), 'Done!')
 )
 src = driver.find_element(By.CSS_SELECTOR, "#award").get_attribute("src")
 
