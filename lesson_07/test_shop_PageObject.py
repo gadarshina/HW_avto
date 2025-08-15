@@ -37,6 +37,7 @@ def test_checkout_total(browser):
     checkout_page.input_zip_code("12345")
     checkout_page.complete_order()
 
-    total_amount = float(checkout_page.get_total_amount())
+    total_amount_str = checkout_page.get_total_amount()
+    total_amount = float(total_amount_str)
 
     assert total_amount == 58.29

@@ -17,7 +17,9 @@ class CalculatorPage:
 
 
     def click_button(self, button_text):
-        button = self.driver.find_element(By.XPATH, f"//button[text()='{button_text}']")
+        button = self.driver.find_element(
+            By.XPATH, f"//button[text()='{button_text}']"
+        )
         button.click()
 
     def get_result(self):
@@ -27,12 +29,12 @@ class CalculatorPage:
         return result_element.text
 
 
-    @pytest.fixture
-    def driver(self):
-        driver = webdriver.Chrome()
-        yield driver
-        driver.quit()
+@pytest.fixture
+def driver():
+    driver = webdriver.Chrome()
 
+    yield driver
+    driver.quit()
 
 def test_calculator(driver):
     driver.get("https://bonigarcia.dev/selenium-webdriver-java/slow-calculator.html")
